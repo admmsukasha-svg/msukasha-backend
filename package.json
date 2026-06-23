@@ -1,16 +1,19 @@
 {
-  "name": "msukasha-frontend",
+  "name": "msukasha-backend",
   "version": "1.0.0",
-  "description": "MSukasha - Pakistan's B2B Wholesale & C2C Marketplace Frontend",
-  "main": "index.html",
+  "description": "MSukasha - Backend API",
+  "main": "server.js",
   "scripts": {
-    "start": "serve .",
-    "build": "echo 'No build step required for static HTML'"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
-    "serve": "^14.2.4"
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "engines": {
+    "node": "18.x"
+  }
 }
