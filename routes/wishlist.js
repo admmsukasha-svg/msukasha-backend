@@ -1,55 +1,19 @@
 const express = require('express');
-const router  = express.Router();
-const User    = require('../models/User');
-const { protect } = require('../middleware/auth');
+const router = express.Router();
 
-// GET /api/wishlist — Wishlist dekho
-router.get('/', protect, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id).populate('wishlist', 'name images price salePrice status seller');
-    res.json({ success: true, wishlist: user.wishlist, count: user.wishlist.length });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+// Wishlist routes
+router.get('/', (req, res) => {
+  res.json({ success: true, message: 'Get wishlist', data: [] });
 });
 
-// POST /api/wishlist/toggle/:productId — Add ya remove toggle
-router.post('/toggle/:productId', protect, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    const productId = req.params.productId;
-
-    const idx = user.wishlist.indexOf(productId);
-    let action;
-
-    if (idx === -1) {
-      user.wishlist.push(productId);
-      action = 'added';
-    } else {
-      user.wishlist.splice(idx, 1);
-      action = 'removed';
-    }
-
-    await user.save();
-    res.json({
-      success: true,
-      action,
-      message: action === 'added' ? 'Wishlist mein add ho gaya' : 'Wishlist se remove ho gaya',
-      count: user.wishlist.length
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+router.post('/add', (req, res) => {
+  // TODO: Implement add to wishlist
+  res.json({ success: false, message: 'Not implemented' });
 });
 
-// DELETE /api/wishlist/clear — Clear wishlist
-router.delete('/clear', protect, async (req, res) => {
-  try {
-    await User.findByIdAndUpdate(req.user._id, { wishlist: [] });
-    res.json({ success: true, message: 'Wishlist clear ho gayi' });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+router.delete('/:id', (req, res) => {
+  // TODO: Implement remove from wishlist
+  res.json({ success: false, message: 'Not implemented' });
 });
 
 module.exports = router;
