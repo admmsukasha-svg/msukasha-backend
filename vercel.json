@@ -1,14 +1,19 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "server.js"
     }
-  ]
+  ],
+  "env": {
+    "MONGO_URI": "@mongo_uri",
+    "NODE_ENV": "production"
+  }
 }
