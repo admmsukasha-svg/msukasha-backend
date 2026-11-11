@@ -50,6 +50,7 @@ app.use(['/api/login', '/api/register'], limiter(15 * 60 * 1000, 20, 'Too many a
 app.post(['/api/contact', '/api/job-application', '/api/verification', '/api/partner', '/api/book-call', '/api/ads'],
   limiter(60 * 60 * 1000, 15));
 app.post('/api/business-ads', limiter(60 * 60 * 1000, 10));
+app.post('/api/video-calls', limiter(60 * 60 * 1000, 10));
 
 // Connect to MongoDB (cached between serverless calls)
 app.use('/api', async (req, res, next) => {
@@ -68,6 +69,7 @@ app.use('/api/ads', require('./routes/ads'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/seller', require('./routes/seller'));
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/video-calls', require('./routes/videoCalls'));
 app.use('/api', require('./routes/forms'));           // /contact /job-application /verification /partner /book-call
 app.use('/api/business-ads', require('./routes/businessAds'));
 app.use('/api/admin', require('./routes/admin'));
