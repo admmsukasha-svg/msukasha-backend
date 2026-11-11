@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/stats', requireAuth, requireRole('seller', 'admin'), asyncHandler(async (req, res) => {
   const me = String(req.user._id);
   const [products, orders] = await Promise.all([
-    Product.countDocuments({ seller: req.user._id }),
+    Product.countDocuments({ seller: req.user._id, status: 'active' }),
     Order.find({ 'items.seller': req.user._id }).select('items status').limit(5000).lean()
   ]);
 
