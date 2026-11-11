@@ -78,6 +78,7 @@ function cleanObject(v, depth = 0) {
 // Removes Mongo operator keys ($where, $ne ...) from incoming data (NoSQL injection).
 function stripOperators(obj) {
   if (!obj || typeof obj !== 'object') return obj;
+  if (Buffer.isBuffer(obj)) return obj;
   for (const key of Object.keys(obj)) {
     if (key.startsWith('$') || key.includes('.')) delete obj[key];
     else stripOperators(obj[key]);
